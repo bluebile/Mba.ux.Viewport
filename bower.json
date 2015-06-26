@@ -1,0 +1,32 @@
+{
+    "name": "Mba.ux.Viewport",
+    "version": "0.0.1",
+    "homepage": "https://github.com/bluebile/Mba.ux.Viewport",
+    "authors": [
+        "Bluebile <info@bluebile.com>"
+    ],
+    "description": "Correções viewports Android e WP8",
+    "main": [
+        "viewport/Default.js"
+    ],
+    "keywords": [
+        "senchatouch",
+        "extjs",
+        "ux",
+        "viewport"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "demo",
+        "ux",
+        "**/*.*~",
+        "Gruntfile.js",
+        "bower.json",
+        "package.json",
+        "test",
+        "tests"
+    ]
+}
