@@ -16,7 +16,7 @@
     "maxerr": 200,
     "nonstandard": true,
     "maxdepth": 3,
-    "maxcomplexity": 5,
+    "maxcomplexity": 10,
     "validthis": true,
     "maxparams": 6,
     "evil": true,

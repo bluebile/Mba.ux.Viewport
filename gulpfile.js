@@ -8,7 +8,7 @@ var gulp = require('gulp'),
 
 knownOptions = {
     string: [ 'target', 'reporter-lint', 'reporter-cs', 'output-cpd' ],
-    default: { "target": '*.js', "reporter-lint": 'default' }
+    default: { "target": 'viewport/*.js', "reporter-lint": 'default' }
 };
 
 configCS = {
