@@ -12,7 +12,7 @@ Ext.define('Mba.ux.viewport.Default', {
 }, function() {
     Ext.onSetup(function() {
         if (Ext.os.is.Android) {
-            Ext.Viewport.on('resize', 'scrollFocusedFieldIntoView');
+            Ext.Viewport.on('resize', Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView);
         }
     });
 });
