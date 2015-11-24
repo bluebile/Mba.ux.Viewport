@@ -5,15 +5,20 @@ Ext.define('Mba.ux.viewport.Default', {
     onElementFocus: function() {
         this.callParent(arguments);
         if (Ext.os.is.Android) {
-            Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView();
+            Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView(this);
         }
-    }
+    },
+
+    callbackFocus: function()
+    {
+        Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView(this);
+    },
+
 
 }, function() {
     Ext.onSetup(function() {
         if (Ext.os.is.Android) {
-            Ext.Viewport.on('resize', Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView);
+            Ext.Viewport.on('resize', 'callbackFocus');
         }
     });
 });
-

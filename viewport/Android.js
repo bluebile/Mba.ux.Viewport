@@ -2,12 +2,19 @@ Ext.define('Mba.ux.viewport.Android', {
     override: 'Ext.viewport.Android',
     requires: ['Mba.ux.Viewport.Focus'],
 
-    onElementFocus: function() {
+    onElementFocus: function()
+    {
         this.callParent(arguments);
-        Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView();
+        Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView(this);
     },
 
-    hideKeyboardIfNeeded: function() {
+    callbackFocus: function()
+    {
+        Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView(this);
+    },
+
+    hideKeyboardIfNeeded: function()
+    {
         var eventController = arguments[arguments.length - 1],
             focusedElement = this.focusedElement;
 
@@ -26,6 +33,6 @@ Ext.define('Mba.ux.viewport.Android', {
         if (!Ext.os.is.Android) {
             return;
         }
-        Ext.Viewport.on('resize', Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView);
+        Ext.Viewport.on('resize', 'callbackFocus');
     });
 });
