@@ -339,8 +339,7 @@ Ext.define('Mba.ux.viewport.Default', {
             return;
         }
 
-        console.log('this', this);
-        if(!this.getNavigation().back()) {
+        if(!Ext.Viewport.getNavigation().back()) {
             Ext.Msg.confirm(null,
                 "Deseja realmente sair do aplicativo?", function(answer) {
                     if (answer == 'sim') {
