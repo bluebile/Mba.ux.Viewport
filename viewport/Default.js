@@ -1,6 +1,9 @@
 Ext.define('Mba.ux.viewport.Default', {
     override: 'Ext.viewport.Default',
-    requires: ['Mba.ux.Viewport.Focus'],
+    requires: [
+        'Mba.ux.Viewport.Focus',
+        'Mba.ux.Viewport.Navigation'
+    ],
 
     onElementFocus: function() {
         this.callParent(arguments);
@@ -326,13 +329,34 @@ Ext.define('Mba.ux.viewport.Default', {
                 menu.hide();
             }
         }
+    },
+    getNavigation: function() {
+        return Mba.ux.Viewport.Navigation;
+    },
+    onBack: function() {
+        if (Ext.isFunction(botaoVoltarFn)) {
+            botaoVoltarFn();
+            return;
+        }
+
+        console.log('this', this);
+        if(!this.getNavigation().back()) {
+            Ext.Msg.confirm(null,
+                "Deseja realmente sair do aplicativo?", function(answer) {
+                    if (answer == 'sim') {
+                        navigator.app.exitApp();
+                    }
+                }
+            );
+        }
     }
-
-
 }, function() {
     Ext.onSetup(function() {
         if (Ext.os.is.Android) {
             Ext.Viewport.on('resize', 'callbackFocus');
         }
+        document.addEventListener("backbutton", function() {
+            Ext.Viewport.onBack();
+        }, false);
     });
 });
