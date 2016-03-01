@@ -334,8 +334,10 @@ Ext.define('Mba.ux.viewport.Default', {
         return Mba.ux.Viewport.Navigation;
     },
     onBack: function() {
-        if (Ext.isFunction(botaoVoltarFn)) {
-            botaoVoltarFn();
+        var backOverride = this.getNavigation().getBackOverride();
+
+        if (Ext.isFunction(backOverride)) {
+            backOverride();
             return;
         }
 

@@ -2,6 +2,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
     singleton: true,
     alternateClassName: 'viewport.navigation',
     config: {
+        backOverride: null,
         navigationStack: []
     },
     constructor : function (config) {
@@ -68,5 +69,11 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         var view = Ext.Viewport.child(viewXtype);
 
         return view.getAnimation ? view.getAnimation() : null;
+    },
+    clearNavitaionStack: function() {
+        this.setNavigationStack([]);
+    },
+    clearBackOverride: function() {
+        this.setBackOverride(null);
     }
 });
