@@ -334,21 +334,26 @@ Ext.define('Mba.ux.viewport.Default', {
         return Mba.ux.Viewport.Navigation;
     },
     onBack: function() {
-        var backOverride = this.getNavigation().getBackOverride();
+        var navigation = this.getNavigation(),
+            backOverride = navigation.getBackOverride();
 
         if (Ext.isFunction(backOverride)) {
             backOverride();
             return;
         }
 
-        if(!Ext.Viewport.getNavigation().back()) {
-            Ext.Msg.confirm(null,
-                "Deseja realmente sair do aplicativo?", function(answer) {
-                    if (answer == 'sim') {
-                        navigator.app.exitApp();
+        if(!navigation.back()) {
+            if(navigation.getConfirmCloseApp()) {
+                Ext.Msg.confirm(null,
+                    "Deseja realmente sair do aplicativo?", function(answer) {
+                        if (answer == 'sim') {
+                            navigator.app.exitApp();
+                        }
                     }
-                }
-            );
+                );
+            } else {
+                navigator.app.exitApp();
+            }
         }
     }
 }, function() {

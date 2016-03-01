@@ -2,6 +2,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
     singleton: true,
     alternateClassName: 'viewport.navigation',
     config: {
+        confirmCloseApp: true,
         backOverride: null,
         navigationStack: []
     },
