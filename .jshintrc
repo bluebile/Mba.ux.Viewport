@@ -20,5 +20,5 @@
     "validthis": true,
     "maxparams": 6,
     "evil": true,
-    "globals": { "Ext": false, "Mba": true }
+    "globals": { "Ext": false, "Mba": true, "blackberry": true }
 }

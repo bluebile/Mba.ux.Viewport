@@ -31,21 +31,21 @@ Ext.define('Mba.ux.viewport.Default', {
 
         if (!menu) {
             //<debug error>
-            Ext.Logger.error("You must specify a side to dock the menu.");
+            Ext.Logger.error('You must specify a side to dock the menu.');
             //</debug>
             return;
         }
 
         if (!config.side) {
             //<debug error>
-            Ext.Logger.error("You must specify a side to dock the menu.");
+            Ext.Logger.error('You must specify a side to dock the menu.');
             //</debug>
             return;
         }
 
         if (['left', 'right', 'top', 'bottom'].indexOf(config.side) == -1) {
             //<debug error>
-            Ext.Logger.error("You must specify a valid side (left, right, top or botom) to dock the menu.");
+            Ext.Logger.error('You must specify a valid side (left, right, top or botom) to dock the menu.');
             //</debug>
             return;
         }
@@ -73,7 +73,7 @@ Ext.define('Mba.ux.viewport.Default', {
             if (window.blackberry) {
                 var toggleMenu = function() {
                     var menus = me.getMenus(),
-                        menu = menus['top'];
+                        menu = menus.top;
 
                     if (!menu) {
                         return;
@@ -88,9 +88,8 @@ Ext.define('Mba.ux.viewport.Default', {
 
                 if (blackberry.app && blackberry.app.event && blackberry.app.event.onSwipeDown) {
                     blackberry.app.event.onSwipeDown(toggleMenu); // PlayBook
-                }
-                else if (blackberry.event && blackberry.event.addEventListener) {
-                    blackberry.event.addEventListener("swipedown", toggleMenu); // BB10
+                } else if (blackberry.event && blackberry.event.addEventListener) {
+                    blackberry.event.addEventListener('swipedown', toggleMenu); // BB10
                 }
             }
         }
@@ -108,20 +107,17 @@ Ext.define('Mba.ux.viewport.Default', {
             menu.setRight(null);
             menu.setTop(0);
             menu.setBottom(0);
-        }
-        else if (config.side == 'right') {
+        } else if (config.side == 'right') {
             menu.setLeft(null);
             menu.setRight(0);
             menu.setTop(0);
             menu.setBottom(0);
-        }
-        else if (config.side == 'top') {
+        } else if (config.side == 'top') {
             menu.setLeft(0);
             menu.setRight(0);
             menu.setTop(0);
             menu.setBottom(null);
-        }
-        else if (config.side == 'bottom') {
+        } else if (config.side == 'bottom') {
             menu.setLeft(0);
             menu.setRight(0);
             menu.setTop(null);
@@ -131,9 +127,7 @@ Ext.define('Mba.ux.viewport.Default', {
         me.setMenus(menus);
     },
 
-
-
-     /**
+    /**
      * Shows a menu specified by the menu's side.
      * @param {String} side The side which the menu is placed.
      */
@@ -171,8 +165,7 @@ Ext.define('Mba.ux.viewport.Default', {
 
         if (menu.$reveal) {
             Ext.getBody().insertFirst(menu.element);
-        }
-        else {
+        } else {
             Ext.Viewport.add(menu);
         }
 
@@ -184,22 +177,18 @@ Ext.define('Mba.ux.viewport.Default', {
         if (side == 'left') {
             before.translateX = -size;
             viewportAfter.translateX = size;
-        }
-        else if (side == 'right') {
+        } else if (side == 'right') {
             before.translateX = size;
             viewportAfter.translateX = -size;
-        }
-        else if (side == 'top') {
+        } else if (side == 'top') {
             before.translateY = -size;
             viewportAfter.translateY = size;
-        }
-        else if (side == 'bottom') {
+        } else if (side == 'bottom') {
             before.translateY = size;
             viewportAfter.translateY = -size;
         }
 
-
-        if(menu.$overSize){
+        if (menu.$overSize) {
             return;
         }
 
@@ -207,8 +196,7 @@ Ext.define('Mba.ux.viewport.Default', {
             if (Ext.browser.getPreferredTranslationMethod() != 'scrollposition') {
                 menu.translate(0, 0);
             }
-        }
-        else {
+        } else {
             menu.translate(before.translateX, before.translateY);
         }
 
@@ -224,10 +212,8 @@ Ext.define('Mba.ux.viewport.Default', {
                 duration: 200
             });
 
-        }
-        else {
+        } else {
             this.translate(viewportBefore.translateX, viewportBefore.translateY);
-
 
             this.getTranslatable().on('animationend', function() {
                 menu.isAnimating = false;
@@ -275,18 +261,15 @@ Ext.define('Mba.ux.viewport.Default', {
 
         if (side == 'left') {
             after.translateX = -size;
-        }
-        else if (side == 'right') {
+        } else if (side == 'right') {
             after.translateX = size;
-        }
-        else if (side == 'top') {
+        } else if (side == 'top') {
             after.translateY = -size;
-        }
-        else if (side == 'bottom') {
+        } else if (side == 'bottom') {
             after.translateY = size;
         }
 
-        if(menu.$overSize){
+        if (menu.$overSize) {
             menu.hide();
             return;
         }
@@ -304,13 +287,11 @@ Ext.define('Mba.ux.viewport.Default', {
                     preserveEndState: true,
                     duration: 200
                 });
-            }
-            else {
+            } else {
                 menu.translate(after.translateX, after.translateY);
-                menu.hide()
+                menu.hide();
             }
-        }
-        else {
+        } else {
             if (animate) {
                 this.getTranslatable().on('animationend', function() {
                     menu.isAnimating = false;
@@ -323,16 +304,17 @@ Ext.define('Mba.ux.viewport.Default', {
                     preserveEndState: true,
                     duration: 200
                 });
-            }
-            else {
+            } else {
                 this.translate(viewportAfter.translateX, viewportAfter.translateY);
                 menu.hide();
             }
         }
     },
+
     getNavigation: function() {
         return Mba.ux.Viewport.Navigation;
     },
+
     onBack: function() {
         var navigation = this.getNavigation(),
             backOverride = navigation.getBackOverride();
@@ -342,10 +324,10 @@ Ext.define('Mba.ux.viewport.Default', {
             return;
         }
 
-        if(!navigation.back()) {
-            if(navigation.getConfirmCloseApp()) {
+        if (!navigation.back()) {
+            if (navigation.getConfirmCloseApp()) {
                 Ext.Msg.confirm(null,
-                    "Deseja realmente sair do aplicativo?", function(answer) {
+                    'Deseja realmente sair do aplicativo?', function(answer) {
                         if (answer == 'sim') {
                             navigator.app.exitApp();
                         }
@@ -361,7 +343,7 @@ Ext.define('Mba.ux.viewport.Default', {
         if (Ext.os.is.Android) {
             Ext.Viewport.on('resize', 'callbackFocus');
         }
-        document.addEventListener("backbutton", function() {
+        document.addEventListener('backbutton', function() {
             Ext.Viewport.onBack();
         }, false);
     });
