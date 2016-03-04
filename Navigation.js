@@ -40,6 +40,9 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         return view;
     },
+    clear: function() {
+        this.setNavigationStack([]);
+    },
     orderHistory: function(viewXtype) {
         var stack = this.getNavigationStack(),
             pos;
