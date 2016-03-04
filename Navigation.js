@@ -71,7 +71,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         return view.getAnimation ? view.getAnimation() : null;
     },
-    clearNavitaionStack: function() {
+    clearNavigationStack: function() {
         this.setNavigationStack([]);
     },
     clearBackOverride: function() {
