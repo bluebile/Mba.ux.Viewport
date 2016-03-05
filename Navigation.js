@@ -9,15 +9,28 @@ Ext.define('Mba.ux.Viewport.Navigation', {
     singleton: true,
     alternateClassName: 'viewport.navigation',
     config: {
+        /**
+         * @cfg {Object} closeApp
+         * @cfg {String} closeApp.message
+         * @cfg {Function} closeApp.fn (required)
+         */
         closeApp: {
             message: 'Deseja realmente sair do aplicativo?',
             fn: function() {
                 navigator.app.exitApp();
             }
         },
+        /**
+         * @cfg {Function} [appEmptyHistoryBackFn=Mba.ux.Viewport.Navigation.closeAppFn()]
+         * Callback utilizado na Viewport para tomar decisão o que fazer quando a navegação retorna para View inicial
+         */
         appEmptyHistoryBackFn: function() {
             viewport.navigation.closeAppFn();
         },
+        /**
+         * @cfg {Array} navigationStack
+         * Coleção de views adicionadas na Viewpor
+         */
         navigationStack: []
     },
 
@@ -26,6 +39,11 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         this.callParent([config]);
     },
 
+    /**
+     * @method
+     * Antes de realizar atribuição para o objeto closeApp realiza validação se função de saida foi definida
+     * @param {Object} currentClose
+     */
     updateCloseApp: function(currentClose)
     {
         if (!currentClose) {
@@ -41,6 +59,14 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         }
     },
 
+    /**
+     * @method
+     * Ativa uma view na Viewport de acordo com xtype, permite setar configs e animação como segundo e terceiro argumento
+     * @param {xtype} viewXtype
+     * @param {Object} [options]
+     * @param {Object} [animation]
+     * @returns {Object} retorna o objeto de acordo com xtype passado no primeiro argumento
+     */
     activateView: function(viewXtype, options, animation) {
         var view;
 
@@ -53,12 +79,10 @@ Ext.define('Mba.ux.Viewport.Navigation', {
             animation.direction = 'left';
         }
 
-        for(var o in options) {
-            view['set' + Ext.String.capitalize(o)](options[o]);
-        }
+        this.setOptionsView(view, options);
 
         if (view.isInnerItem()) {
-            if(animation) {
+            if (animation) {
                 Ext.Viewport.animateActiveItem(view, animation);
             } else {
                 Ext.Viewport.setActiveItem(view);
@@ -72,6 +96,25 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         return view;
     },
 
+    /**
+     * @method
+     * Atribui configs para View (cls, hidden)
+     * @param {Object} view
+     * @param {Object} options
+     * @private
+     */
+    setOptionsView: function(view, options)
+    {
+        for(var o in options) {
+            view['set' + Ext.String.capitalize(o)](options[o]);
+        }
+    },
+
+    /**
+     * @method
+     * Adiciona xtype para array {@link #navigationStack} de navegação
+     * @param {xtype} viewXtype
+     */
     orderHistory: function(viewXtype) {
         var stack = this.getNavigationStack(),
             pos;
@@ -84,6 +127,9 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         this.setNavigationStack(stack);
     },
 
+    /**
+     * @returns {Boolean}
+     */
     back: function() {
         var stack = this.getNavigationStack();
 
@@ -102,12 +148,22 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         return true;
     },
 
+    /**
+     * @method
+     * Retorna a animação atribuida para View caso está possua
+     * @param {xtype} viewXtype
+     * @returns {Object}
+     */
     getAnimation: function(viewXtype) {
         var view = Ext.Viewport.child(viewXtype);
 
         return view.getAnimation ? view.getAnimation() : null;
     },
 
+    /**
+     * @method
+     * Retira todos xtype atribuidos durante a navegação
+     */
     clearNavigationStack: function() {
         this.setNavigationStack([]);
     },
