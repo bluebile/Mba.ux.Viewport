@@ -1,10 +1,31 @@
+/**
+ * Classe responsável por gerenciar a navegação das telas adicionadas a Viewport
+ *
+ * @class Mba.ux.Viewport.Navigation
+ * @singleton
+ * @alternateClassName viewport.navigation
+ */
 Ext.define('Mba.ux.Viewport.Navigation', {
     singleton: true,
     alternateClassName: 'viewport.navigation',
 
     config: {
+        /**
+         * @cfg {Boolean} confirmCloseApp=true
+         *
+         */
         confirmCloseApp: true,
+
+        /**
+         * @cfg {Function} backOverride
+         * Callback que captura backbutton do app
+         */
         backOverride: null,
+
+        /**
+         * @cfg {Array} navigationStack
+         * Array com viewports adicionadas
+         */
         navigationStack: []
     },
 
