@@ -18,7 +18,6 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         appEmptyHistoryBackFn: function() {
             viewport.navigation.closeAppFn();
         },
-        backOverrideFn: null,
         navigationStack: []
     },
 
@@ -111,10 +110,6 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
     clearNavigationStack: function() {
         this.setNavigationStack([]);
-    },
-
-    clearBackOverride: function() {
-        this.setBackOverrideFn(null);
     },
 
     // @private

@@ -5,6 +5,19 @@ Ext.define('Mba.ux.viewport.Default', {
         'Mba.ux.Viewport.Navigation'
     ],
 
+    constructor: function(config) {
+
+        if (config.autoNavigation) {
+            delete config.autoNavigation;
+            var me = this;
+            document.addEventListener('backbutton', function() {
+                me.onBack();
+            }, false);
+        }
+
+        this.callOverridden(arguments);
+    },
+
     onElementFocus: function() {
         this.callParent(arguments);
         if (Ext.os.is.Android) {
@@ -316,13 +329,7 @@ Ext.define('Mba.ux.viewport.Default', {
     },
     
     onBack: function() {
-        var navigation = this.getNavigation(),
-            backOverrideFn = navigation.getBackOverrideFn();
-
-        if (Ext.isFunction(backOverrideFn)) {
-            backOverrideFn();
-            return;
-        }
+        var navigation = this.getNavigation();
 
         if (!navigation.back()) {
             navigation.getAppEmptyHistoryBackFn()();
@@ -333,8 +340,5 @@ Ext.define('Mba.ux.viewport.Default', {
         if (Ext.os.is.Android) {
             Ext.Viewport.on('resize', 'callbackFocus');
         }
-        document.addEventListener('backbutton', function() {
-            Ext.Viewport.onBack();
-        }, false);
     });
 });
