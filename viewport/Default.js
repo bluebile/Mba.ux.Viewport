@@ -314,28 +314,18 @@ Ext.define('Mba.ux.viewport.Default', {
     getNavigation: function() {
         return Mba.ux.Viewport.Navigation;
     },
-
+    
     onBack: function() {
         var navigation = this.getNavigation(),
-            backOverride = navigation.getBackOverride();
+            backOverrideFn = navigation.getBackOverrideFn();
 
-        if (Ext.isFunction(backOverride)) {
-            backOverride();
+        if (Ext.isFunction(backOverrideFn)) {
+            backOverrideFn();
             return;
         }
 
-        if (!navigation.back()) {
-            if (navigation.getConfirmCloseApp()) {
-                Ext.Msg.confirm(null,
-                    'Deseja realmente sair do aplicativo?', function(answer) {
-                        if (answer == 'sim') {
-                            navigator.app.exitApp();
-                        }
-                    }
-                );
-            } else {
-                navigator.app.exitApp();
-            }
+        if(!navigation.back()) {
+            navigation.getAppEmptyHistoryBackFn()();
         }
     }
 }, function() {

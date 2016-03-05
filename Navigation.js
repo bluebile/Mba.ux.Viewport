@@ -1,37 +1,38 @@
 Ext.define('Mba.ux.Viewport.Navigation', {
     singleton: true,
     alternateClassName: 'viewport.navigation',
-
     config: {
         confirmCloseApp: true,
-        backOverride: null,
+        closeAppConfirmMessage: 'Deseja realmente sair do aplicativo?',
+        closeAppFn: function() {navigator.app.exitApp()},
+        appEmptyHistoryBackFn: function() {viewport.navigation.closeApp()},
+        backOverrideFn: null,
         navigationStack: []
     },
-
-    constructor: function(config)
+    constructor : function (config)
     {
         this.initConfig(config);
         this.callParent([config]);
     },
-
-    activateView: function(viewXtype, options, animation) {
+    activateView: function(viewXtype, options, animation)
+    {
         var view;
 
-        if (!(view = Ext.Viewport.child(viewXtype))) {
+        if(!(view = Ext.Viewport.child(viewXtype))) {
             view = Ext.Viewport.add({xtype: viewXtype});
         }
 
-        if (!animation && view.getAnimation) {
+        if(!animation && view.getAnimation) {
             animation = view.getAnimation();
             animation.direction = 'left';
         }
 
-        for (var o in options) {
+        for(var o in options) {
             view['set' + Ext.String.capitalize(o)](options[o]);
         }
 
         if (view.isInnerItem()) {
-            if (animation) {
+            if(animation) {
                 Ext.Viewport.animateActiveItem(view, animation);
             } else {
                 Ext.Viewport.setActiveItem(view);
@@ -44,7 +45,6 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         return view;
     },
-
     orderHistory: function(viewXtype)
     {
         var stack = this.getNavigationStack(),
@@ -57,14 +57,11 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         stack.push(viewXtype);
         this.setNavigationStack(stack);
     },
-
     back: function()
     {
         var stack = this.getNavigationStack();
 
-        if (stack.length <= 1) {
-            return false;
-        }
+        if (stack.length <= 1) {return false;}
 
         var animation = this.getAnimation(stack.pop());
 
@@ -76,21 +73,31 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         return true;
     },
-
     getAnimation: function(viewXtype)
     {
         var view = Ext.Viewport.child(viewXtype);
 
         return view.getAnimation ? view.getAnimation() : null;
     },
-
     clearNavigationStack: function()
     {
         this.setNavigationStack([]);
     },
-
     clearBackOverride: function()
     {
-        this.setBackOverride(null);
+        this.setBackOverrideFn(null);
+    },
+    closeApp: function()
+    {
+        if (this.getConfirmCloseApp()) {
+            Ext.Msg.confirm(null, this.getCloseAppConfirmMessage(), (function(answer) {
+                    if (answer == 'sim') {
+                        this.getCloseAppFn()();
+                    }
+                }).bind(this)
+            );
+        } else {
+            this.getCloseAppFn()();
+        }
     }
 });
