@@ -44,8 +44,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      * Antes de realizar atribuição para o objeto closeApp realiza validação se função de saida foi definida
      * @param {Object} currentClose
      */
-    updateCloseApp: function(currentClose)
-    {
+    updateCloseApp: function(currentClose) {
         if (!currentClose) {
             return;
         }
@@ -103,8 +102,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      * @param {Object} options
      * @private
      */
-    setOptionsView: function(view, options)
-    {
+    setOptionsView: function(view, options) {
         for(var o in options) {
             view['set' + Ext.String.capitalize(o)](options[o]);
         }
@@ -128,6 +126,8 @@ Ext.define('Mba.ux.Viewport.Navigation', {
     },
 
     /**
+     * @method
+     * Navegação entre views, remove a última view adicionada a coleção ativando a na viewport {@link #activateView()}
      * @returns {Boolean}
      */
     back: function() {
