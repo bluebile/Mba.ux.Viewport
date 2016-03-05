@@ -9,29 +9,43 @@ Ext.define('Mba.ux.Viewport.Navigation', {
     singleton: true,
     alternateClassName: 'viewport.navigation',
     config: {
-        /**
-         * @cfg {Boolean} confirmCloseApp=true
-         *
-         */
-        confirmCloseApp: true,
-        closeAppConfirmMessage: 'Deseja realmente sair do aplicativo?',
-        closeAppFn: function() {navigator.app.exitApp()},
+        closeApp: {
+            message: 'Deseja realmente sair do aplicativo?',
+            fn: function() {
+                navigator.app.exitApp();
+            }
+        },
         appEmptyHistoryBackFn: function() {
-            viewport.navigation.closeApp();
+            viewport.navigation.closeAppFn();
         },
         backOverrideFn: null,
         navigationStack: []
     },
-    constructor : function (config)
-    {
+
+    constructor: function (config) {
         this.initConfig(config);
         this.callParent([config]);
     },
-    activateView: function(viewXtype, options, animation)
+
+    updateCloseApp: function(currentClose)
     {
+        if (!currentClose) {
+            return;
+        }
+
+        if (!Ext.isObject(currentClose)) {
+            throw 'CloseApp not object.';
+        }
+
+        if (!Ext.isFunction(currentClose.fn)) {
+            throw 'Callback Close is required.';
+        }
+    },
+
+    activateView: function(viewXtype, options, animation) {
         var view;
 
-        if(!(view = Ext.Viewport.child(viewXtype))) {
+        if (!(view = Ext.Viewport.child(viewXtype))) {
             view = Ext.Viewport.add({xtype: viewXtype});
         }
 
@@ -58,8 +72,8 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         return view;
     },
-    orderHistory: function(viewXtype)
-    {
+
+    orderHistory: function(viewXtype) {
         var stack = this.getNavigationStack(),
             pos;
 
@@ -74,7 +88,9 @@ Ext.define('Mba.ux.Viewport.Navigation', {
     back: function() {
         var stack = this.getNavigationStack();
 
-        if (stack.length <= 1) {return false;}
+        if (stack.length <= 1) {
+            return false;
+        }
 
         var animation = this.getAnimation(stack.pop());
 
@@ -101,17 +117,19 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         this.setBackOverrideFn(null);
     },
 
-    closeApp: function()
-    {
-        if (this.getConfirmCloseApp()) {
-            Ext.Msg.confirm(null, this.getCloseAppConfirmMessage(), (function(answer) {
+    // @private
+    closeAppFn: function() {
+        var closeApp = this.getCloseApp();
+
+        if (closeApp.message) {
+            Ext.Msg.confirm(null, closeApp.message, (function(answer) {
                     if (answer == 'sim') {
-                        this.getCloseAppFn()();
+                        closeApp.fn();
                     }
                 }).bind(this)
             );
         } else {
-            this.getCloseAppFn()();
+            closeApp.fn();
         }
     }
 });

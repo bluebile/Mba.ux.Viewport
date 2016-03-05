@@ -324,7 +324,7 @@ Ext.define('Mba.ux.viewport.Default', {
             return;
         }
 
-        if(!navigation.back()) {
+        if (!navigation.back()) {
             navigation.getAppEmptyHistoryBackFn()();
         }
     }
