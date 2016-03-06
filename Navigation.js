@@ -6,7 +6,6 @@
  * @alternateClassName viewport.navigation
  */
 Ext.define('Mba.ux.Viewport.Navigation', {
-    singleton: true,
     alternateClassName: 'viewport.navigation',
     config: {
         /**

@@ -5,6 +5,28 @@ Ext.define('Mba.ux.viewport.Default', {
         'Mba.ux.Viewport.Navigation'
     ],
 
+    navigation: null,
+
+    createNavigation: function(config)
+    {
+        this.navigation = Ext.factory(config, Mba.ux.Viewport.Navigation, null, 'navigation');
+        return this.navigation;
+    },
+
+    setNavigation: function(navigation)
+    {
+        return this.createNavigation(navigation);
+    },
+
+    getNavigation: function()
+    {
+        if (this.navigation === null) {
+            this.setNavigation({});
+        }
+
+        return this.navigation;
+    },
+
     constructor: function(config) {
 
         if (config.autoNavigation) {
@@ -14,6 +36,12 @@ Ext.define('Mba.ux.viewport.Default', {
                 me.onBack();
             }, false);
         }
+
+        if (config.navigation) {
+            this.setNavigation(config.navigation);
+        }
+
+        console.log(this.getNavigation());
 
         this.callOverridden(arguments);
     },
@@ -324,10 +352,6 @@ Ext.define('Mba.ux.viewport.Default', {
         }
     },
 
-    getNavigation: function() {
-        return Mba.ux.Viewport.Navigation;
-    },
-    
     onBack: function() {
         var navigation = this.getNavigation();
 
