@@ -41,8 +41,6 @@ Ext.define('Mba.ux.viewport.Default', {
             this.setNavigation(config.navigation);
         }
 
-        console.log(this.getNavigation());
-
         this.callOverridden(arguments);
     },
 
