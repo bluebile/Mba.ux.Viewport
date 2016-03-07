@@ -24,7 +24,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
          * Callback utilizado na Viewport para tomar decisão o que fazer quando a navegação retorna para View inicial
          */
         appEmptyHistoryBackFn: function() {
-            viewport.navigation.closeAppFn();
+            this.closeAppFn();
         },
         /**
          * @cfg {Array} navigationStack
@@ -173,10 +173,10 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         if (closeApp.message) {
             Ext.Msg.confirm(null, closeApp.message, (function(answer) {
-                    if (answer == 'sim') {
-                        closeApp.fn();
-                    }
-                }).bind(this)
+                if (answer == 'sim') {
+                    closeApp.fn();
+                }
+            }).bind(this)
             );
         } else {
             closeApp.fn();

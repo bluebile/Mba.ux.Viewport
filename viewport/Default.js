@@ -30,7 +30,6 @@ Ext.define('Mba.ux.viewport.Default', {
     constructor: function(config) {
 
         if (config.autoNavigation) {
-            delete config.autoNavigation;
             var me = this;
             document.addEventListener('backbutton', function() {
                 me.onBack();
@@ -48,6 +47,19 @@ Ext.define('Mba.ux.viewport.Default', {
         this.callParent(arguments);
         if (Ext.os.is.Android) {
             Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView(this);
+        }
+    },
+
+    /**
+     * @private
+     */
+    doSetActiveItem: function(newActiveItem, oldActiveItem) {
+
+        this.callOverridden(arguments);
+        if (this.config.autoNavigation) {
+            if (newActiveItem) {
+                this.getNavigation().orderHistory(newActiveItem.xtype);
+            }
         }
     },
 
@@ -354,7 +366,7 @@ Ext.define('Mba.ux.viewport.Default', {
         var navigation = this.getNavigation();
 
         if (!navigation.back()) {
-            navigation.getAppEmptyHistoryBackFn()();
+            navigation.getAppEmptyHistoryBackFn().apply(navigation);
         }
     }
 }, function() {
