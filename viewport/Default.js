@@ -1,3 +1,7 @@
+/**
+ * @class Mba.ux.viewport.Default
+ * @override Ext.viewport.Default
+ */
 Ext.define('Mba.ux.viewport.Default', {
     override: 'Ext.viewport.Default',
     requires: [
@@ -5,19 +9,39 @@ Ext.define('Mba.ux.viewport.Default', {
         'Mba.ux.Viewport.Navigation'
     ],
 
+    /**
+     * @private
+     */
     navigation: null,
 
+    /**
+     * @method
+     * Cria um objeto Navigation
+     * @param {Object/Mba.ux.Viewport.Navigation} config
+     * @return Mba.ux.Viewport.Navigation
+     */
     createNavigation: function(config)
     {
         this.navigation = Ext.factory(config, Mba.ux.Viewport.Navigation, null, 'navigation');
         return this.navigation;
     },
 
+    /**
+     * @method
+     * Atribui objeto Navigation
+     * @param {Object/Mba.ux.Viewport.Navigation} navigation
+     * @return {Mba.ux.Viewport.Navigation}
+     */
     setNavigation: function(navigation)
     {
         return this.createNavigation(navigation);
     },
 
+    /**
+     * @method
+     * Retorna o objeto Navigation
+     * @return {Mba.ux.Viewport.Navigation}
+     */
     getNavigation: function()
     {
         if (this.navigation === null) {
