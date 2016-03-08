@@ -9,6 +9,12 @@ Ext.define('Mba.ux.Viewport.Navigation', {
     alternateClassName: 'viewport.navigation',
     config: {
         /**
+         * @cfg [Array} xtypesResetable
+         * Xtypes mapeados que são resetados {@link #clearNavigationStack} automicatimente,
+         * também pode ser feito no config da View com atribuito 'resettable'
+         */
+        xtypesResetable: [],
+        /**
          * @cfg {Object} closeApp
          * @cfg {String} closeApp.message
          * @cfg {Function} closeApp.fn (required)
@@ -130,7 +136,8 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      * @returns {Boolean}
      */
     back: function() {
-        var stack = this.getNavigationStack();
+        var stack = this.getNavigationStack(),
+            view, xtypes, xtype;
 
         if (stack.length <= 1) {
             return false;
@@ -142,7 +149,13 @@ Ext.define('Mba.ux.Viewport.Navigation', {
             animation.direction = 'right';
         }
 
-        this.activateView(stack.pop(), null, animation);
+        xtype  = stack.pop();
+        view   = this.activateView(xtype, null, animation);
+        xtypes = this.getXtypesResetable();
+
+        if (xtypes.indexOf(xtype) || view.getResettable()) {
+            this.clearNavigationStack();
+        }
 
         return true;
     },
