@@ -10,6 +10,17 @@ Ext.define('Mba.ux.viewport.Default', {
     ],
 
     /**
+     * @cfg {Boolean} autoNavigation
+     * Navegeção automática registrando no {@link Mba.ux.Viewport.Navigation} com {@link #setActiveItem()} e {@link #animateActiveItem()}
+     * Também tem o mesmo comportamento do {@link #registerOnBack}
+     */
+
+    /**
+     * @cfg {Boolean} registerOnBack
+     * registra backbutton automático com execução do método {@link #onBack()}
+     */
+
+    /**
      * @private
      */
     navigation: null,
@@ -53,7 +64,7 @@ Ext.define('Mba.ux.viewport.Default', {
 
     constructor: function(config) {
 
-        if (config.autoNavigation) {
+        if (config.autoNavigation || config.registerOnBack) {
             var me = this;
             document.addEventListener('backbutton', function() {
                 me.onBack();
