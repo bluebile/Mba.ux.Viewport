@@ -178,9 +178,15 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      */
     activeHome: function() {
         var home = this.getHome(),
+            stack = this.getNavigationStack(),
             animation, view;
 
         if (!home) {
+            return false;
+        }
+
+        if (stack.length == 1 && stack[0] === home) {
+            this.setHome(null);
             return false;
         }
 
