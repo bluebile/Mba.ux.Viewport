@@ -185,7 +185,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
             return false;
         }
 
-        if (stack.length == 1 && stack[0] === home) {
+        if (Ext.Viewport.getActiveItem().xtype === home) {
             this.setHome(null);
             return false;
         }
