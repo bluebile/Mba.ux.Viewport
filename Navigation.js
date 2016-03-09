@@ -181,12 +181,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
             stack = this.getNavigationStack(),
             animation, view;
 
-        if (!home) {
-            return false;
-        }
-
         if (Ext.Viewport.getActiveItem().xtype === home) {
-            this.setHome(null);
             return false;
         }
 
@@ -194,7 +189,6 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         view      = this.activateView(home, null, animation);
 
         this.clearAutoNavigation(view);
-        this.setHome(null);
         return true;
     },
 
