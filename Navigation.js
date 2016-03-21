@@ -138,7 +138,9 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      */
     back: function() {
         var stack = this.getNavigationStack(),
-            view, xtype, animation;
+            xtype, animation;
+
+        this.clearAutoNavigation(stack[stack.length-1]);
 
         if (stack.length <= 1) {
             return false;
@@ -151,9 +153,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         }
 
         xtype  = stack.pop();
-        view   = this.activateView(xtype, null, animation);
-
-        this.clearAutoNavigation(view);
+        this.activateView(xtype, null, animation);
 
         return true;
     },
@@ -162,11 +162,21 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      * @private
      * @param {Object} view
      */
-    clearAutoNavigation: function(view) {
+    clearAutoNavigation: function(xtype) {
         var xtypes = this.getXtypesResetable()
-        if (xtypes.indexOf(view.xtype) != -1 || view.resettable) {
+        if (xtypes.indexOf(xtype) != -1) {
             this.clearNavigationStack();
+            return  true;
         }
+
+        var view = Ext.Viewport.child(xtype);
+
+        if (view.resettable) {
+            this.clearNavigationStack();
+            return  true;
+        }
+
+        return false;
     },
 
     /**
