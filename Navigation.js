@@ -198,7 +198,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      */
     clearAutoNavigation: function(view) {
         var xtypes = this.getXtypesResetable()
-        if (xtypes.indexOf(view.xtype) || view.getResettable()) {
+        if (xtypes.indexOf(view.xtype) != -1 || view.resettable) {
             this.clearNavigationStack();
         }
     },
