@@ -31,10 +31,9 @@ Ext.define('Mba.ux.viewport.Default', {
      * @param {Object/Mba.ux.Viewport.Navigation} config
      * @return Mba.ux.Viewport.Navigation
      */
-    createNavigation: function(config)
-    {
+    createNavigation: function(config) {
         this.navigation = Ext.factory(config, Mba.ux.Viewport.Navigation, null, 'navigation');
-        return this.navigation;
+        return this;
     },
 
     /**
@@ -43,8 +42,7 @@ Ext.define('Mba.ux.viewport.Default', {
      * @param {Object/Mba.ux.Viewport.Navigation} navigation
      * @return {Mba.ux.Viewport.Navigation}
      */
-    setNavigation: function(navigation)
-    {
+    setNavigation: function(navigation) {
         return this.createNavigation(navigation);
     },
 
@@ -53,8 +51,7 @@ Ext.define('Mba.ux.viewport.Default', {
      * Retorna o objeto Navigation
      * @return {Mba.ux.Viewport.Navigation}
      */
-    getNavigation: function()
-    {
+    getNavigation: function() {
         if (this.navigation === null) {
             this.setNavigation({});
         }
@@ -73,6 +70,7 @@ Ext.define('Mba.ux.viewport.Default', {
 
         if (config.navigation) {
             this.setNavigation(config.navigation);
+            delete config.navigation;
         }
 
         this.callOverridden(arguments);
@@ -98,8 +96,7 @@ Ext.define('Mba.ux.viewport.Default', {
         }
     },
 
-    callbackFocus: function()
-    {
+    callbackFocus: function() {
         Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView(this);
     },
 
