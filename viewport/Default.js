@@ -91,6 +91,7 @@ Ext.define('Mba.ux.viewport.Default', {
         this.callOverridden(arguments);
         if (this.config.autoNavigation) {
             if (newActiveItem) {
+                this.getNavigation().clearAutoNavigation(newActiveItem.xtype);
                 this.getNavigation().orderHistory(newActiveItem.xtype);
             }
         }

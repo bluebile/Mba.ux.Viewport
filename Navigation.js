@@ -170,7 +170,6 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         }
 
         var view = Ext.Viewport.child(xtype);
-
         if (view.resettable) {
             this.clearNavigationStack();
             return  true;
