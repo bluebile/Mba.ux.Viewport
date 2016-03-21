@@ -5,3 +5,4 @@ CHANGELOG
 
  * bug fix [Deleção objeto criado pelo prototype via config no app.js] ed0066d
  * bug fix [Correção condição clearNavigation] c0915ad
+ * bug fix [Refatorar clearNavigation automático] #3
