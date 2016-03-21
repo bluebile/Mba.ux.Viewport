@@ -9,8 +9,6 @@ Ext.define('Mba.ux.Viewport.Navigation', {
     alternateClassName: 'viewport.navigation',
 
     config: {
-
-        home: null,
         /**
          * @cfg [Array} xtypesResetable
          * Xtypes mapeados que são resetados {@link #clearNavigationStack} automicatimente,
@@ -125,18 +123,8 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         var stack = this.getNavigationStack(),
             pos;
 
-        if (this.getHome() === null) {
-            if (stack.length === 0) {
-                this.setHome(viewXtype);
-            }
-        }
-
         if ((pos = stack.indexOf(viewXtype)) >= 0) {
             stack.splice(pos, 1);
-        }
-
-        if (viewXtype === this.home) {
-            stack.unshift(viewXtype);
         }
 
         stack.push(viewXtype);
@@ -153,7 +141,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
             view, xtype, animation;
 
         if (stack.length <= 1) {
-            return this.activeHome();
+            return false;
         }
 
         animation = this.getAnimation(stack.pop());
@@ -167,28 +155,6 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         this.clearAutoNavigation(view);
 
-        return true;
-    },
-
-    /**
-     * @method
-     * Ativa a home se está for definida
-     * @private
-     * @return {Boolean}
-     */
-    activeHome: function() {
-        var home = this.getHome(),
-            stack = this.getNavigationStack(),
-            animation, view;
-
-        if (Ext.Viewport.getActiveItem().xtype === home) {
-            return false;
-        }
-
-        animation = this.getAnimation(home);
-        view      = this.activateView(home, null, animation);
-
-        this.clearAutoNavigation(view);
         return true;
     },
 
