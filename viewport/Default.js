@@ -84,6 +84,19 @@ Ext.define('Mba.ux.viewport.Default', {
     },
 
     /**
+     * @inheritdoc
+     */
+    add: function() {
+        var item = this.callOverridden(arguments);
+
+        if (!item.isInnerItem()) {
+            this.getNavigation().orderHistory(item.xtype);
+        }
+
+        return item;
+    },
+
+    /**
      * @private
      */
     doSetActiveItem: function(newActiveItem, oldActiveItem) {

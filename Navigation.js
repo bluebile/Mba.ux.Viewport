@@ -79,7 +79,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
             view = Ext.Viewport.add({xtype: viewXtype});
         }
 
-        if(!animation && view.getAnimation) {
+        if(!animation && Ext.isFunction(view.getAnimation)) {
             animation = view.getAnimation();
             animation.direction = 'left';
         }
@@ -138,7 +138,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      */
     back: function() {
         var stack = this.getNavigationStack(),
-            xtype, animation;
+            view, xtype, animation;
 
         this.clearAutoNavigation(stack[stack.length-1]);
 
@@ -146,7 +146,15 @@ Ext.define('Mba.ux.Viewport.Navigation', {
             return false;
         }
 
-        animation = this.getAnimation(stack.pop());
+        xtype = stack.pop();
+        view = Ext.Viewport.child(xtype);
+
+        if (!view.isInnerItem()) {
+            view.hide();
+            return true;
+        }
+
+        animation = this.getAnimation(view);
 
         if (animation) {
             animation.direction = 'right';
@@ -184,8 +192,10 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      * @param {xtype} viewXtype
      * @returns {Object}
      */
-    getAnimation: function(viewXtype) {
-        var view = Ext.Viewport.child(viewXtype);
+    getAnimation: function(view) {
+        if (typeof view === 'string') {
+            view = Ext.Viewport.child(viewXtype);
+        }
 
         return view.getAnimation ? view.getAnimation() : null;
     },
