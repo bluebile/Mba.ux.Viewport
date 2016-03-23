@@ -421,7 +421,7 @@ Ext.define('Mba.ux.viewport.Default', {
             navigation.getAppEmptyHistoryBackFn().apply(navigation);
         }
 
-        this.fireEvent('backbutton', this, view);
+        this.fireEvent('back', this, view);
     }
 }, function() {
     Ext.onSetup(function() {
