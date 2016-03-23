@@ -3,7 +3,8 @@ CHANGELOG
 
 * v0.0.14 (2016-03-23)
 
- * bug fix [Correção bug Ext.Mask adicionada na stack] #5
+ * bug fix [Adicionar showMenu() e hideMenu() para navegação auto] #6
+ * feature [Adição de evento backbutton] #7
 
 * v0.0.13 (2016-03-21)
 

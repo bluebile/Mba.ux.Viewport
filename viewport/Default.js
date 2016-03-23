@@ -413,11 +413,15 @@ Ext.define('Mba.ux.viewport.Default', {
     },
 
     onBack: function() {
-        var navigation = this.getNavigation();
+        var navigation = this.getNavigation(),
+            view;
 
-        if (!navigation.back()) {
+        view = navigation.back();
+        if (!view) {
             navigation.getAppEmptyHistoryBackFn().apply(navigation);
         }
+
+        this.fireEvent('backbutton', this, view);
     }
 }, function() {
     Ext.onSetup(function() {

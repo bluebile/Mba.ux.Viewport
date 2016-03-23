@@ -170,8 +170,8 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         if (!view.isInnerItem()) {
             view.hide();
-            view.fireEvent('backbutton');
-            return true;
+            view.fireEvent('backbutton', view);
+            return view;
         }
 
         animation = this.getAnimation(view);
@@ -184,7 +184,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         this.activateView(xtype, null, animation);
         view.fireEvent('backbutton', view);
 
-        return true;
+        return view;
     },
 
     /**
