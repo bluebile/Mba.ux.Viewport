@@ -133,8 +133,27 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
     /**
      * @method
+     * Remove item da stack pelo xtype
+     * @return {Boolean}
+     */
+    removeStack: function(xtype) {
+        var stack = this.getNavigationStack(),
+            pos;
+
+        pos = stack.indexOf(xtype);
+
+        if (pos === -1) {
+            return false;
+        }
+
+        stack.splice(pos, 1);
+        return true;
+    },
+
+    /**
+     * @method
      * Navegação entre views, remove a última view adicionada a coleção ativando a na viewport {@link #activateView()}
-     * @returns {Boolean}
+     * @return {Boolean}
      */
     back: function() {
         var stack = this.getNavigationStack(),
@@ -151,6 +170,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         if (!view.isInnerItem()) {
             view.hide();
+            view.fireEvent('backbutton');
             return true;
         }
 
@@ -162,6 +182,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         xtype  = stack.pop();
         this.activateView(xtype, null, animation);
+        view.fireEvent('backbutton', view);
 
         return true;
     },

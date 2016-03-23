@@ -408,6 +408,8 @@ Ext.define('Mba.ux.viewport.Default', {
                 menu.hide();
             }
         }
+
+        this.getNavigation().removeStack(menu.xtype);
     },
 
     onBack: function() {
