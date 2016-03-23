@@ -1,6 +1,10 @@
 CHANGELOG
 ===================
 
+* v0.0.14 (2016-03-23)
+
+ * bug fix [Correção bug Ext.Mask adicionada na stack] #5
+
 * v0.0.13 (2016-03-21)
 
  * feature [adição navegação backbutton com modal] #4
