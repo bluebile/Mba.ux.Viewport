@@ -89,8 +89,10 @@ Ext.define('Mba.ux.viewport.Default', {
     add: function() {
         var item = this.callOverridden(arguments);
 
-        if (!item.isInnerItem()) {
-            this.getNavigation().orderHistory(item.xtype);
+        if (this.config.autoNavigation) {
+            if (!item.isInnerItem() && Ext.isFunction(item.getModal) && item.getModal()) {
+                this.getNavigation().orderHistory(item.xtype);
+            }
         }
 
         return item;
