@@ -93,6 +93,7 @@ Ext.define('Mba.ux.viewport.Default', {
             if (!item.isInnerItem() && Ext.isFunction(item.getModal) && item.getModal()) {
                 this.getNavigation().orderHistory(item.xtype);
             }
+            this.fireEvent('push', this, item);
         }
 
         return item;

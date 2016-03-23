@@ -5,6 +5,7 @@ CHANGELOG
 
  * bug fix [Adicionar showMenu() e hideMenu() para navegação auto] #6
  * feature [Adição de evento backbutton] #7
+ * feature [Adição de evento 'push'] #8
 
 * v0.0.13 (2016-03-21)
 
