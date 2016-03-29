@@ -159,11 +159,11 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         var stack = this.getNavigationStack(),
             view, xtype, animation;
 
-        this.clearAutoNavigation(stack[stack.length-1]);
-
         if (stack.length <= 1) {
             return false;
         }
+
+        this.clearAutoNavigation(stack[stack.length-1]);
 
         xtype = stack.pop();
         view = Ext.Viewport.child(xtype);
@@ -197,6 +197,11 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         }
 
         var view = Ext.Viewport.child(xtype);
+
+        if (!view) {
+            return false;
+        }
+
         if (view.resettable) {
             this.clearNavigationStack();
             return  true;

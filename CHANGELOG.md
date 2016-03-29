@@ -1,6 +1,9 @@
 CHANGELOG
 ===================
 
+* v0.0.15 (2016-03-29)
+ * bug fix [Confirm limpa stack] #9
+
 * v0.0.14 (2016-03-23)
 
  * bug fix [Adicionar showMenu() e hideMenu() para navegação auto] #6
