@@ -90,7 +90,7 @@ Ext.define('Mba.ux.viewport.Default', {
         var item = this.callOverridden(arguments);
 
         if (this.config.autoNavigation) {
-            if (this.allowAutoNavigation()) {
+            if (this.allowAutoNavigation(item)) {
                 this.getNavigation().orderHistory(item.xtype);
             }
             this.fireEvent('push', this, item);
