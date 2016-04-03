@@ -90,13 +90,23 @@ Ext.define('Mba.ux.viewport.Default', {
         var item = this.callOverridden(arguments);
 
         if (this.config.autoNavigation) {
-            if (!item.isInnerItem() && Ext.isFunction(item.getModal) && item.getModal()) {
+            if (this.allowAutoNavigation()) {
                 this.getNavigation().orderHistory(item.xtype);
             }
             this.fireEvent('push', this, item);
         }
 
         return item;
+    },
+
+    /**
+     * @private
+     */
+    allowAutoNavigation: function(item) {
+        return  item.$className !== 'Ext.Toast' &&
+               !item.isInnerItem() &&
+                Ext.isFunction(item.getModal) &&
+                item.getModal()
     },
 
     /**

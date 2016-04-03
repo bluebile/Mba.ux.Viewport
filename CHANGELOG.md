@@ -1,6 +1,9 @@
 CHANGELOG
 ===================
 
+* v0.0.16 (2016-04-02)
+  * bug fix [Ignorar Toast autoNavigation] #10
+
 * v0.0.15 (2016-03-29)
  * bug fix [Confirm limpa stack] #9
 
