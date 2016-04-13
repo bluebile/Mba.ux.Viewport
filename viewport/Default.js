@@ -9,6 +9,30 @@ Ext.define('Mba.ux.viewport.Default', {
         'Mba.ux.Viewport.Navigation'
     ],
 
+    blockEvent: false,
+
+    /**
+     * @method
+     * Bloqueia o evento backbutton
+     *
+     * @returns retorna fluent interface
+     */
+    blockEventBack: function() {
+        this.blockEvent = true;
+        return this;
+    },
+
+    /**
+     * @method
+     * Bloqueia o evento backbutton
+     *
+     * @returns retorna fluent interface
+     */
+    unBlockEventBack: function() {
+        this.blockEvent = false;
+        return this;
+    },
+
     /**
      * @cfg {Boolean} autoNavigation
      * Navegeção automática registrando no {@link Mba.ux.Viewport.Navigation} com {@link #setActiveItem()} e {@link #animateActiveItem()}
@@ -64,7 +88,10 @@ Ext.define('Mba.ux.viewport.Default', {
         if (config.autoNavigation || config.registerOnBack) {
             var me = this;
             document.addEventListener('backbutton', function() {
-                me.onBack();
+                if (me.blockEvent) {
+                    me.onBack();
+                }
+
             }, false);
         }
 
