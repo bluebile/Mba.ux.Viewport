@@ -1,7 +1,10 @@
 CHANGELOG
 ===================
 
-* v0.0.16 (2016-04-13)
+* v0.0.18 (2016-04-17)
+  * feature fix [Adição de evento 'back' para viewport ativa]
+
+* v0.0.17 (2016-04-13)
   * bug fix [Block backbutton register]
 
 * v0.0.16 (2016-04-02)
