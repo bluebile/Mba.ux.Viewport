@@ -1,6 +1,6 @@
 {
     "name": "Mba.ux.Viewport",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "homepage": "https://github.com/bluebile/Mba.ux.Viewport",
     "authors": [
         "Bluebile <info@bluebile.com>"
@@ -29,5 +29,8 @@
         "test",
         "tests"
     ],
+    "cordova" : {
+        "id_or_url_plugin": "ionic-plugin-keyboard@2.0.1"
+    },
     "requires": "Mba.ux.viewport.*"
 }

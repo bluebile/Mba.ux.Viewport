@@ -9,6 +9,24 @@ Ext.define('Mba.ux.viewport.Default', {
         'Mba.ux.Viewport.Navigation'
     ],
 
+    /**
+     * @cfg {Number} keyboardHeight
+     * registra a altura do teclado nativo.
+     */
+    keyboardHeight: 0,
+
+    /**
+     * @cfg {Number} lastPositionY
+     * registra a última posição do scroll Y para retornar depois que o teclado sumir.
+     */
+    lastPositionY: 0,
+
+    /**
+     * @cfg {Number} lastScrollReference
+     * registra a referência do scroller atual.
+     */
+    lastScrollReference: null,
+
     blockEvent: false,
 
     /**
@@ -84,7 +102,6 @@ Ext.define('Mba.ux.viewport.Default', {
     },
 
     constructor: function(config) {
-
         if (config.autoNavigation || config.registerOnBack) {
             var me = this;
             document.addEventListener('backbutton', function() {
@@ -98,6 +115,20 @@ Ext.define('Mba.ux.viewport.Default', {
         if (config.navigation) {
             this.setNavigation(config.navigation);
             delete config.navigation;
+        }
+
+        if (Ext.browser.is.Cordova && Ext.os.is.iOS) {
+            cordova.plugins.Keyboard.disableScroll(true);
+            window.addEventListener('native.keyboardshow', function(e) {
+                Ext.Viewport.keyboardHeight = e.keyboardHeight;
+                Ext.Viewport.callbackFocus();
+            }, false);
+            window.addEventListener('native.keyboardhide', function() {
+                if (Ext.Viewport.lastScrollReference) {
+                    Ext.Viewport.keyboardHeight = 0;
+                    Ext.Viewport.lastScrollReference.scrollTo(0, Ext.Viewport.lastPositionY, false);
+                }
+            }, false);
         }
 
         this.callOverridden(arguments);
@@ -460,6 +491,22 @@ Ext.define('Mba.ux.viewport.Default', {
         }
 
         this.fireEvent('back', this, view);
+    },
+
+    forceKeyboardHide: function(allPlatforms) {
+        if (Ext.browser.is.Cordova) {
+            if (Ext.os.is.Android || allPlatforms) {
+                cordova.plugins.Keyboard.close();
+            }
+        }
+    },
+
+    forceKeyboardOpen: function(allPlatforms) {
+        if (Ext.browser.is.Cordova) {
+            if (Ext.os.is.Android || allPlatforms) {
+                cordova.plugins.Keyboard.show();
+            }
+        }
     }
 }, function() {
     Ext.onSetup(function() {

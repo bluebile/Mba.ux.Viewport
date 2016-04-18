@@ -8,7 +8,7 @@ Ext.define('Mba.ux.Viewport.Focus', {
             fieldId = fieldEl && fieldEl.id,
             fieldCmp = fieldId && Ext.getCmp(fieldId),
             offsetTop = 0,
-            scrollingContainer, scroller, scrollerEl, domCursor, thresholdY, containerHeight;
+            scrollingContainer, scroller, scrollerEl, domCursor, thresholdY, containerHeight, animate = true;
 
         if (!fieldCmp) {
             return;
@@ -28,11 +28,14 @@ Ext.define('Mba.ux.Viewport.Focus', {
 
             containerHeight = scroller.getContainerSize().y;
             thresholdY = offsetTop + fieldEl.getHeight() + (me.config.fieldFocusPadding || 40);
-            // console.log('offsetTop=%o, containerHeight=%o, thresholdY=%o', offsetTop, containerHeight, thresholdY);
-
+            if (Ext.os.is.iOS) {
+                thresholdY += Ext.Viewport.keyboardHeight;
+                animate = false;
+            }
             if (scroller.position.y + containerHeight < thresholdY) {
-                // console.log('scrolling to ', thresholdY - containerHeight);
-                scroller.scrollTo(0, thresholdY - containerHeight, true);
+                scope.lastPositionY = scroller.position.y;
+                scope.lastScrollReference = scroller;
+                scope.lastScrollReference.scrollTo(0, thresholdY - containerHeight + 10, animate);
             }
         }
     }
