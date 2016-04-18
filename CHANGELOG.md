@@ -1,8 +1,14 @@
 CHANGELOG
 ===================
 
-* v0.0.18 (2016-04-17)
+* v0.0.19 (2016-04-18)
   * feature fix [Adição de evento 'back' para viewport ativa]
+  * revert [Revertendo comportamento da v0.0.18]
+
+* v0.0.18 (2016-04-17)
+  * adicionando métodos na viewport para forçar ações show/hide do teclado.
+  * adicionando dependência do plugin do teclado.
+  * resolvendo problema de scrollToField nos aparelhos iOS.
 
 * v0.0.17 (2016-04-13)
   * bug fix [Block backbutton register]

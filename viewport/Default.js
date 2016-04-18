@@ -84,7 +84,6 @@ Ext.define('Mba.ux.viewport.Default', {
     },
 
     constructor: function(config) {
-
         if (config.autoNavigation || config.registerOnBack) {
             var me = this;
             document.addEventListener('backbutton', function() {
@@ -461,6 +460,7 @@ Ext.define('Mba.ux.viewport.Default', {
 
         this.fireEvent('back', this, view);
     }
+
 }, function() {
     Ext.onSetup(function() {
         if (Ext.os.is.Android) {

@@ -28,10 +28,8 @@ Ext.define('Mba.ux.Viewport.Focus', {
 
             containerHeight = scroller.getContainerSize().y;
             thresholdY = offsetTop + fieldEl.getHeight() + (me.config.fieldFocusPadding || 40);
-            // console.log('offsetTop=%o, containerHeight=%o, thresholdY=%o', offsetTop, containerHeight, thresholdY);
 
             if (scroller.position.y + containerHeight < thresholdY) {
-                // console.log('scrolling to ', thresholdY - containerHeight);
                 scroller.scrollTo(0, thresholdY - containerHeight, true);
             }
         }
