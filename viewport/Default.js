@@ -87,7 +87,7 @@ Ext.define('Mba.ux.viewport.Default', {
         if (config.autoNavigation || config.registerOnBack) {
             var me = this;
             document.addEventListener('backbutton', function() {
-                if (me.blockEvent) {
+                if (!me.blockEvent) {
                     me.onBack();
                 }
 
