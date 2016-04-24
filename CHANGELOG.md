@@ -1,6 +1,11 @@
 CHANGELOG
 ===================
 
+
+* v1.0.0 (2016-04-24)
+  * Refactoring da correção do iOS (realizada na v0.0.18) 
+  * revert [Revertendo comportamento da v0.0.18]
+
 * v0.0.19 (2016-04-18)
   * feature fix [Adição de evento 'back' para viewport ativa]
   * revert [Revertendo comportamento da v0.0.18]

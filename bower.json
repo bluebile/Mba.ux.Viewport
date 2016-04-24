@@ -1,11 +1,11 @@
 {
     "name": "Mba.ux.Viewport",
-    "version": "0.0.19",
+    "version": "1.0.0",
     "homepage": "https://github.com/bluebile/Mba.ux.Viewport",
     "authors": [
         "Bluebile <info@bluebile.com>"
     ],
-    "description": "Correções viewports Android e WP8",
+    "description": "Correções viewports Android, WP8 e iOS",
     "main": [
         "viewport/Default.js"
     ],
@@ -29,5 +29,5 @@
         "test",
         "tests"
     ],
-    "requires": "Mba.ux.viewport.*"
+    "requires": "Mba.ux.Viewport.viewport.*"
 }

@@ -1,14 +1,14 @@
-Ext.define('Mba.ux.viewport.Android', {
+Ext.define('Mba.ux.Viewport.viewport.Android', {
     override: 'Ext.viewport.Android',
     requires: ['Mba.ux.Viewport.Focus'],
 
     onElementFocus: function() {
         this.callParent(arguments);
-        Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView(this);
+        this.fixFocus.scrollFocusedFieldIntoView(this);
     },
 
     callbackFocus: function() {
-        Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView(this);
+        this.fixFocus.scrollFocusedFieldIntoView(this);
     },
 
     hideKeyboardIfNeeded: function() {

@@ -1,7 +1,14 @@
 Ext.define('Mba.ux.Viewport.Focus', {
-    singleton: true,
 
-    scrollFocusedFieldIntoView: function(scope) {
+    lastScroller: null,
+
+    lastPositionY: null,
+
+    scrollFocusedFieldIntoView: function(scope, height, animate) {
+        if (typeof animate === 'undefined') {
+            animate = true;
+        }
+
         var me = scope,
             focusedDom = me.focusedElement,
             fieldEl = focusedDom && Ext.fly(focusedDom).up('.x-field'),
@@ -28,11 +35,14 @@ Ext.define('Mba.ux.Viewport.Focus', {
 
             containerHeight = scroller.getContainerSize().y;
             thresholdY = offsetTop + fieldEl.getHeight() + (me.config.fieldFocusPadding || 40);
-
+            if (height) {
+                thresholdY += height;
+            }
             if (scroller.position.y + containerHeight < thresholdY) {
-                scroller.scrollTo(0, thresholdY - containerHeight, true);
+                this.lastPositionY = scroller.position.y;
+                this.lastScroller = scroller;
+                scroller.scrollTo(0, thresholdY - containerHeight + 10, animate);
             }
         }
     }
 });
-

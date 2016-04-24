@@ -180,8 +180,8 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         }
 
         xtype  = stack.pop();
-        this.activateView(xtype, null, animation);
         view.fireEvent('back', view);
+        this.activateView(xtype, null, animation);
         return view;
     },
 

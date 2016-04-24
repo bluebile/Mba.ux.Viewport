@@ -1,13 +1,28 @@
 /**
- * @class Mba.ux.viewport.Default
+ * @class Mba.ux.Viewport.viewport.Default
  * @override Ext.viewport.Default
  */
-Ext.define('Mba.ux.viewport.Default', {
+Ext.define('Mba.ux.Viewport.viewport.Default', {
     override: 'Ext.viewport.Default',
     requires: [
         'Mba.ux.Viewport.Focus',
         'Mba.ux.Viewport.Navigation'
     ],
+
+    /**
+     * Objeto auxiliar para a correção de bugs do teclado (scrollToField)
+     */
+    fixFocus: null,
+
+    /**
+     * @method
+     * Recupera a instância do fix para o teclado.
+     *
+     * @returns Mba.ux.Viewport.Focus
+     */
+    getFixFocus: function() {
+        return this.fixFocus;
+    },
 
     blockEvent: false,
 
@@ -84,7 +99,10 @@ Ext.define('Mba.ux.viewport.Default', {
     },
 
     constructor: function(config) {
-        if (config.autoNavigation || config.registerOnBack) {
+        if (typeof config.registerOnBack === 'undefined') {
+            config.registerOnBack = true;
+        }
+        if (config.autoNavigation && config.registerOnBack) {
             var me = this;
             document.addEventListener('backbutton', function() {
                 if (!me.blockEvent) {
@@ -99,6 +117,7 @@ Ext.define('Mba.ux.viewport.Default', {
             delete config.navigation;
         }
 
+        this.fixFocus = Ext.create('Mba.ux.Viewport.Focus');
         this.callOverridden(arguments);
     },
 
@@ -132,7 +151,7 @@ Ext.define('Mba.ux.viewport.Default', {
         return  item.$className !== 'Ext.Toast' &&
                !item.isInnerItem() &&
                 Ext.isFunction(item.getModal) &&
-                item.getModal()
+                item.getModal() && item.$className !== 'Ext.MessageBox'
     },
 
     /**
@@ -150,7 +169,7 @@ Ext.define('Mba.ux.viewport.Default', {
     },
 
     callbackFocus: function() {
-        Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView(this);
+        this.fixFocus.scrollFocusedFieldIntoView(this);
     },
 
     setMenu: function(menu, config) {

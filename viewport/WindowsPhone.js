@@ -1,4 +1,4 @@
-Ext.define('Mba.ux.viewport.WindowsPhone', {
+Ext.define('Mba.ux.Viewport.viewport.WindowsPhone', {
     override: 'Ext.viewport.WindowsPhone',
 
     onElementFocus: function() {

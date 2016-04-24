@@ -4,6 +4,7 @@
 .buildpath
 nbproject
 *.sublime-project
+.DS_Store
 .idea
 ## arquivos privados de IDE
 *.sublime-workspace
