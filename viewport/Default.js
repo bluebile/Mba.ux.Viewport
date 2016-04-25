@@ -105,13 +105,6 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
         this.callOverridden(arguments);
     },
 
-    onElementFocus: function() {
-        this.callParent(arguments);
-        if (Ext.os.is.Android) {
-            Mba.ux.Viewport.Focus.scrollFocusedFieldIntoView(this);
-        }
-    },
-
     /**
      * @inheritdoc
      */

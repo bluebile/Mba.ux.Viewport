@@ -1,6 +1,6 @@
 /**
  * Correcao scroll teclado para iOS dependencia do ionic.keyboard
- * 
+ *
  * @class Mba.ux.Viewport.viewport.plugin.KeyboardFix
  * @extends Ext.Evented
  */
@@ -13,6 +13,7 @@ Ext.define('Mba.ux.Viewport.viewport.plugin.KeyboardFix', {
     init: function(viewport) {
 
         var scroller = this.getScroller();
+
         if (Ext.browser.is.Cordova) {
 
             var animate = true;
@@ -21,9 +22,18 @@ Ext.define('Mba.ux.Viewport.viewport.plugin.KeyboardFix', {
                 cordova.plugins.Keyboard.disableScroll(true);
             }
 
-            window.addEventListener('native.keyboardshow', function(e) {
-                scroller.scrollFocusedFieldIntoView(viewport, e.keyboardHeight, animate);
-            }, false);
+            var callScroller = function(scroll, container, anime) {
+                return function(e) {
+                    scroll.scrollFocusedFieldIntoView(container, e.keyboardHeight, anime);
+                }
+            }
+
+            window.addEventListener(
+                'native.keyboardshow',
+                callScroller(scroller, viewport, animate),
+                false
+            );
+
             window.addEventListener('native.keyboardhide', function() {
                 var lastScroller = scroller.lastScroller;
                 if (lastScroller) {
@@ -32,12 +42,13 @@ Ext.define('Mba.ux.Viewport.viewport.plugin.KeyboardFix', {
             }, false);
         }
 
-        Ext.override(viewport, {
-            onElementFocus: function() {
-                this.callOverridden(arguments);
-                scroller.scrollFocusedFieldIntoView(viewport);
-            }
-        });
+        /*var original = viewport.onElementFocus;
+         viewport.onElementFocus = function() {
+         original.call(viewport, arguments);
+         setTimeout(function() {
+         scroller.scrollFocusedFieldIntoView(viewport);
+         }, 50);
+         }*/
     },
 
     getScroller: function() {
