@@ -12,25 +12,21 @@ Ext.define('Mba.ux.Viewport.viewport.plugin.KeyboardFix', {
 
     init: function(viewport) {
 
-        var scroller = this.getScroller();
+        var scroller = this.getScroller(),
+            animate = true;
+
+        if (Ext.os.is.iOS) {
+            animate = false;
+            cordova.plugins.Keyboard.disableScroll(true);
+        }
 
         if (Ext.browser.is.Cordova) {
 
-            var animate = true;
-            if (Ext.os.is.iOS) {
-                animate = false;
-                cordova.plugins.Keyboard.disableScroll(true);
-            }
-
-            var callScroller = function(scroll, container, anime) {
-                return function(e) {
-                    scroll.scrollFocusedFieldIntoView(container, e.keyboardHeight, anime);
-                }
-            }
-
             window.addEventListener(
                 'native.keyboardshow',
-                callScroller(scroller, viewport, animate),
+                function(e) {
+                    scroller.scrollFocusedFieldIntoView(viewport, e.keyboardHeight, animate);
+                },
                 false
             );
 
@@ -41,14 +37,6 @@ Ext.define('Mba.ux.Viewport.viewport.plugin.KeyboardFix', {
                 }
             }, false);
         }
-
-        /*var original = viewport.onElementFocus;
-         viewport.onElementFocus = function() {
-         original.call(viewport, arguments);
-         setTimeout(function() {
-         scroller.scrollFocusedFieldIntoView(viewport);
-         }, 50);
-         }*/
     },
 
     getScroller: function() {

@@ -38,10 +38,15 @@ Ext.define('Mba.ux.Viewport.ScrollerForce', {
             if (height) {
                 thresholdY += height;
             }
+
             if (scroller.position.y + containerHeight < thresholdY) {
                 this.lastPositionY = scroller.position.y;
                 this.lastScroller = scroller;
-                scroller.scrollTo(0, thresholdY - containerHeight + 10, animate);
+                // workaround delay resize android
+                setTimeout(function() {
+                    scroller.scrollTo(0, thresholdY - containerHeight + 10, animate);
+                }, 50);
+
             }
         }
     }
