@@ -1,7 +1,7 @@
 /**
  * Correcao scroll teclado para iOS dependencia do ionic.keyboard
  * 
- * @class Mba.ux.Viewport.viewport.plugin.FixIOSKeyboard
+ * @class Mba.ux.Viewport.viewport.plugin.KeyboardFix
  * @extends Ext.Evented
  */
 Ext.define('Mba.ux.Viewport.viewport.plugin.KeyboardFix', {
@@ -15,12 +15,14 @@ Ext.define('Mba.ux.Viewport.viewport.plugin.KeyboardFix', {
         var scroller = this.getScroller();
         if (Ext.browser.is.Cordova) {
 
+            var animate = true;
             if (Ext.os.is.iOS) {
+                animate = false;
                 cordova.plugins.Keyboard.disableScroll(true);
             }
 
             window.addEventListener('native.keyboardshow', function(e) {
-                scroller.scrollFocusedFieldIntoView(viewport, e.keyboardHeight, false);
+                scroller.scrollFocusedFieldIntoView(viewport, e.keyboardHeight, animate);
             }, false);
             window.addEventListener('native.keyboardhide', function() {
                 var lastScroller = scroller.lastScroller;
