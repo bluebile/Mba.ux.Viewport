@@ -5,24 +5,8 @@
 Ext.define('Mba.ux.Viewport.viewport.Default', {
     override: 'Ext.viewport.Default',
     requires: [
-        'Mba.ux.Viewport.Focus',
         'Mba.ux.Viewport.Navigation'
     ],
-
-    /**
-     * Objeto auxiliar para a correção de bugs do teclado (scrollToField)
-     */
-    fixFocus: null,
-
-    /**
-     * @method
-     * Recupera a instância do fix para o teclado.
-     *
-     * @returns Mba.ux.Viewport.Focus
-     */
-    getFixFocus: function() {
-        return this.fixFocus;
-    },
 
     blockEvent: false,
 
@@ -102,6 +86,7 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
         if (typeof config.registerOnBack === 'undefined') {
             config.registerOnBack = true;
         }
+
         if (config.autoNavigation && config.registerOnBack) {
             var me = this;
             document.addEventListener('backbutton', function() {
@@ -117,7 +102,6 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
             delete config.navigation;
         }
 
-        this.fixFocus = Ext.create('Mba.ux.Viewport.Focus');
         this.callOverridden(arguments);
     },
 
@@ -166,10 +150,6 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
                 this.getNavigation().orderHistory(newActiveItem.xtype);
             }
         }
-    },
-
-    callbackFocus: function() {
-        this.fixFocus.scrollFocusedFieldIntoView(this);
     },
 
     setMenu: function(menu, config) {
@@ -479,11 +459,4 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
 
         this.fireEvent('back', this, view);
     }
-
-}, function() {
-    Ext.onSetup(function() {
-        if (Ext.os.is.Android) {
-            Ext.Viewport.on('resize', 'callbackFocus');
-        }
-    });
 });

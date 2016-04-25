@@ -1,4 +1,4 @@
-Ext.define('Mba.ux.Viewport.Focus', {
+Ext.define('Mba.ux.Viewport.ScrollerForce', {
 
     lastScroller: null,
 
