@@ -443,13 +443,21 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
 
     onBack: function() {
         var navigation = this.getNavigation(),
-            view;
+            stack = navigation.getNavigationStack(),
+            view = stack[stack.length-1];
+
+        /**
+         * @event back
+         * Evento emitido quando o botão de back for requisitado ou quando for chamado forçadamente.
+         * Caso retorne false, as ações não serão executadas (a view não será desempilhada)
+         */
+        if (this.fireEvent('back', this, view) === false) {
+            return;
+        }
 
         view = navigation.back();
         if (!view) {
             navigation.getAppEmptyHistoryBackFn().apply(navigation);
         }
-
-        this.fireEvent('back', this, view);
     }
 });
