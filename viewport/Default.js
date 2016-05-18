@@ -87,7 +87,7 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
             config.registerOnBack = true;
         }
 
-        if (config.autoNavigation && config.registerOnBack) {
+        if (config.registerOnBack) {
             var me = this;
             document.addEventListener('backbutton', function() {
                 if (!me.blockEvent) {
@@ -444,11 +444,18 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
         var navigation = this.getNavigation(),
             view;
 
+        /**
+          * @event back
+          * Evento emitido quando o botão de back for requisitado ou quando for chamado forçadamente.
+          * Caso retorne false, as ações não serão executadas (a view não será desempilhada)
+        */
+        if (this.fireEvent('back', this) === false) {
+            return;
+        }
+ 
         view = navigation.back();
         if (!view) {
             navigation.getAppEmptyHistoryBackFn().apply(navigation);
         }
-
-        this.fireEvent('back', this, view);
     }
 });
