@@ -6,6 +6,7 @@ CHANGELOG
 
 * v1.0.0RC2 (2016-04-27)
   * feature [Retirando evento 'push'] #11
+  * adicao Plugin Preload
 
 * v1.0.0RC (2016-04-24)
   * Refactoring da correção do iOS (realizada na v0.0.18) 
