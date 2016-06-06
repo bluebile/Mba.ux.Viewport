@@ -1,5 +1,8 @@
 CHANGELOG
 ===================
+* v1.0.0RC3 (2016-05-20)
+  * Vinculação de backbutton do device agora só depende de registerOnBack
+  * Implementação de preventable no método onBack.
 
 * v1.0.0RC2 (2016-04-27)
   * feature [Retirando evento 'push'] #11
