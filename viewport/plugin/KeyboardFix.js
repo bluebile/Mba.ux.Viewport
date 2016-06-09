@@ -15,12 +15,11 @@ Ext.define('Mba.ux.Viewport.viewport.plugin.KeyboardFix', {
         var scroller = this.getScroller(),
             animate = true;
 
-        if (Ext.os.is.iOS) {
-            animate = false;
-            cordova.plugins.Keyboard.disableScroll(true);
-        }
-
         if (Ext.browser.is.Cordova) {
+            if (Ext.os.is.iOS) {
+                animate = false;
+                cordova.plugins.Keyboard.disableScroll(true);
+            }
 
             window.addEventListener(
                 'native.keyboardshow',
