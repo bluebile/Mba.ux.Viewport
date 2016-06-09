@@ -195,7 +195,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      * @param {Object} view
      */
     clearAutoNavigation: function(xtype) {
-        var xtypes = this.getXtypesResetable()
+        var xtypes = this.getXtypesResetable();
         if (xtypes.indexOf(xtype) != -1) {
             this.clearNavigationStack();
             return  true;
@@ -223,7 +223,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      */
     getAnimation: function(view) {
         if (typeof view === 'string') {
-            view = Ext.Viewport.child(viewXtype);
+            view = Ext.Viewport.child(view);
         }
 
         return view.getAnimation ? view.getAnimation() : null;

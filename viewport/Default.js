@@ -34,7 +34,8 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
 
     /**
      * @cfg {Boolean} autoNavigation
-     * Navegeção automática registrando no {@link Mba.ux.Viewport.Navigation} com {@link #setActiveItem()} e {@link #animateActiveItem()}
+     * Navegeção automática registrando no {@link Mba.ux.Viewport.Navigation} com {@link #setActiveItem()}
+     * e {@link #animateActiveItem()}
      * Também tem o mesmo comportamento do {@link #registerOnBack}
      */
 
@@ -127,7 +128,8 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
         return  item.$className !== 'Ext.Toast' &&
                !item.isInnerItem() &&
                 Ext.isFunction(item.getModal) &&
-                item.getModal() && item.$className !== 'Ext.MessageBox'
+                item.getModal() &&
+                item.$className !== 'Ext.MessageBox';
     },
 
     /**
