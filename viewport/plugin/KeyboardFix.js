@@ -3,6 +3,18 @@
  *
  * @class Mba.ux.Viewport.viewport.plugin.KeyboardFix
  * @extends Ext.Evented
+ *
+ * @example
+ *
+ * Ext.application({
+ *   name: 'Test',
+ *   viewport: {
+ *       xclass: 'Ext.viewport.Viewport',
+ *       plugins: [{
+ *           type: 'keyboardfix'
+ *       }]
+ *   }
+ * });
  */
 Ext.define('Mba.ux.Viewport.viewport.plugin.KeyboardFix', {
     extend: 'Ext.Evented',
