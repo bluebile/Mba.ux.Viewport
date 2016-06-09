@@ -1,5 +1,8 @@
 CHANGELOG
 ===================
+* v1.0.0RC4 (2016-06-09)
+  * Adição do plugin splashscreen (Para eliminar splash após primeiro carregamento)
+
 * v1.0.0RC3 (2016-05-20)
   * Vinculação de backbutton do device agora só depende de registerOnBack
   * Implementação de preventable no método onBack.
