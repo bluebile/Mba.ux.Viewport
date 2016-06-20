@@ -1,5 +1,9 @@
 CHANGELOG
 ===================
+* v1.0.0RC5 (2016-06-20)
+  * Adição de LICENSE
+  * bug fix pular autoNavigation quando for inståncia do Ext.Menu 
+
 * v1.0.0RC4 (2016-06-09)
   * Adição do plugin splashscreen (Para eliminar splash após primeiro carregamento)
 

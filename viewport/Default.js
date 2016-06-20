@@ -129,7 +129,8 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
                !item.isInnerItem() &&
                 Ext.isFunction(item.getModal) &&
                 item.getModal() &&
-                item.$className !== 'Ext.MessageBox';
+                item.$className !== 'Ext.MessageBox' &&
+                !(item instanceof Ext.Menu);
     },
 
     /**
