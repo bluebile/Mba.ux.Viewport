@@ -14,6 +14,7 @@ Ext.define('Mba.ux.Viewport.NavBar', {
     constructor: function() {
         var titleBar = Ext.create('Ext.TitleBar', {
             items: arguments[0].items || [],
+            title: arguments[0].title,
             docked: 'top'
         });
         this.callParent(arguments);
