@@ -5,7 +5,8 @@
 Ext.define('Mba.ux.Viewport.viewport.Default', {
     override: 'Ext.viewport.Default',
     requires: [
-        'Mba.ux.Viewport.Navigation'
+        'Mba.ux.Viewport.Navigation',
+        'Ext.Menu'
     ],
 
     blockEvent: false,
