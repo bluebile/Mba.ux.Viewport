@@ -461,5 +461,16 @@ Ext.define('Mba.ux.Viewport.viewport.Default', {
         if (!view) {
             navigation.getAppEmptyHistoryBackFn().apply(navigation);
         }
+    },
+
+    doBlurInput: function(e) {
+        var target = e.target,
+            focusedElement = this.focusedElement;
+        if (focusedElement && !this.isInputRegex.test(target.tagName) &&
+            (target.className.toString().indexOf('ontap-no-blur') < 0)) {
+            delete this.focusedElement;
+            focusedElement.blur();
+        }
     }
+
 });
