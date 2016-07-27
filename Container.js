@@ -18,6 +18,13 @@ Ext.define('Mba.ux.Viewport.Container', {
     config: {
         title: 'Novo título',
         navbar: null
+    },
+
+    updateTitle: function(newTitle) {
+        var sysTab = this.down('#systemTab');
+        if (sysTab) {
+            sysTab.setTitle(newTitle);
+        }
     }
 
 });
