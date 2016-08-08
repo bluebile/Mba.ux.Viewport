@@ -170,6 +170,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         if (!view.isInnerItem()) {
             view.hide();
+            view.fireEvent('back', view, xtype);
             return view;
         }
 
