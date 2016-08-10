@@ -20,6 +20,11 @@ Ext.define('Mba.ux.Viewport.NavBar', {
         });
         this.callParent(arguments);
         titleBar.insert(0, this.getBackButton());
+        titleBar.onBefore('painted', function() {
+            titleBar.down('#systemBackButton').setHidden(
+                Ext.isEmpty(Ext.Viewport.getNavigation().getNavigationStack())
+            );
+        });
         return titleBar;
     },
 
