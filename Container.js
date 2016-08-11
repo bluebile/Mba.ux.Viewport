@@ -5,7 +5,6 @@ Ext.define('Mba.ux.Viewport.Container', {
     requires: 'Mba.ux.Viewport.NavBar',
 
     constructor: function() {
-        this.addCls('navigation-container');
         this.callParent(arguments);
         var navBar = Ext.create('Mba.ux.Viewport.NavBar', {
             itemId: 'systemTab',
