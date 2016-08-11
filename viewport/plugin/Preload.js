@@ -70,7 +70,6 @@ Ext.define('Mba.ux.Viewport.viewport.plugin.Preload', {
             me    = this;
 
         view.onAfter('show', function() {
-            console.log('event show:');
             var fnCreate = function(view) {
                 return function() {
                     me.objects.push(Ext.create(view));
