@@ -5,14 +5,23 @@ Ext.define('Mba.ux.Viewport.Container', {
     requires: 'Mba.ux.Viewport.NavBar',
 
     constructor: function() {
+        this.addCls('navigation-container');
         this.callParent(arguments);
-
         var navBar = Ext.create('Mba.ux.Viewport.NavBar', {
             itemId: 'systemTab',
             title: this.getTitle(),
-            items: this.getNavbar()
+            items: this.getNavbar(),
+            modal: this.getModal() !== null
         });
         this.insert(0, navBar);
+
+        if (this.getModal()) {
+            var me = this;
+            this.on('hide', function() {
+                Ext.Viewport.getNavigation().removeStack(me.xtype);
+                me.destroy();
+            });
+        }
     },
 
     config: {
