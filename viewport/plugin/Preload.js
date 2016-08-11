@@ -31,7 +31,12 @@ Ext.define('Mba.ux.Viewport.viewport.plugin.Preload', {
          * Liga ou desliga a limpeza do objeto apos back em uma view
          * @cfg {Boolean}
          */
-        clean: true
+        clean: true,
+        /**
+         * Liga ou desliga o preload toda vez que executar show
+         * @cfg {Boolean}
+         */
+        single: true
     },
 
     objects: [],
@@ -65,6 +70,7 @@ Ext.define('Mba.ux.Viewport.viewport.plugin.Preload', {
             me    = this;
 
         view.onAfter('show', function() {
+            console.log('event show:');
             var fnCreate = function(view) {
                 return function() {
                     me.objects.push(Ext.create(view));
@@ -73,7 +79,6 @@ Ext.define('Mba.ux.Viewport.viewport.plugin.Preload', {
             for (var i = 0, length = views.length; i < length; i++) {
                 setTimeout(fnCreate(views[i]), 1);
             }
-        }, view, {single: true});
+        }, view, {single: this.getSingle()});
     }
 });
-
