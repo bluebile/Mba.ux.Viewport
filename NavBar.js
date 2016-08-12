@@ -16,7 +16,7 @@ Ext.define('Mba.ux.Viewport.NavBar', {
             items: arguments[0].items || [],
             title: arguments[0].title,
             itemId: arguments[0].itemId,
-            cls: arguments[0].modal ? '': 'navitagion-bar',
+            cls: arguments[0].modal ? '': 'navigation-bar',
             docked: 'top'
         }), button = null;
         this.callParent(arguments);
