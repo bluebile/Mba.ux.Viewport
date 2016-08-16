@@ -53,6 +53,7 @@ Ext.define('Mba.ux.Viewport.NavBar', {
     getCloseModalButton: function() {
         return {
             xtype: 'button',
+            cls: 'back-modal',
             align: Ext.os.is.iOS ? 'left' : 'right',
             itemId: 'systemBackButton',
             text: Ext.os.is.iOS ? MbaLocale.get('geral.botao.voltar') : '<i class="ion-md-close"></i>',
