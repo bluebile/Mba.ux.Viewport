@@ -64,6 +64,17 @@ Ext.define('Mba.ux.Viewport.Navigation', {
         }
     },
 
+    hasPlugin: function(item) {
+        var plugins = item.getPlugins() || [];
+        for (var i = 0, length = plugins.length; i < length; i++) {
+            if (plugins[i].$className.indexOf('TransitionNative') !== -1) {
+                return plugins[i];
+            }
+        }
+
+        return -1;
+    },
+
     /**
      * @method
      * Ativa uma view na Viewport de acordo com xtype, permite setar configs e animação como segundo e terceiro argumento
@@ -77,11 +88,6 @@ Ext.define('Mba.ux.Viewport.Navigation', {
 
         if (!(view = Ext.Viewport.child(viewXtype))) {
             view = Ext.Viewport.add({xtype: viewXtype});
-        }
-
-        if(!animation && Ext.isFunction(view.getAnimation)) {
-            animation = view.getAnimation();
-            animation.direction = 'left';
         }
 
         this.setOptionsView(view, options);
@@ -157,7 +163,7 @@ Ext.define('Mba.ux.Viewport.Navigation', {
      */
     back: function() {
         var stack = this.getNavigationStack(),
-            view, xtype, animation;
+            view, xtype, animation, plugin = -1;
 
         if (stack.length <= 1) {
             return false;
@@ -174,12 +180,39 @@ Ext.define('Mba.ux.Viewport.Navigation', {
             return view;
         }
 
-        animation = this.getAnimation(view);
-
-        if (animation) {
-            animation.direction = 'right';
+        plugin = this.hasPlugin(view);
+        if (Ext.isFunction(view.getAnimation)) {
+            animation = view.getAnimation();
+            animation.direction = 'left';
+        } else if (plugin !== -1) {
+            animation = {};
+            animation.type = plugin.getAnimation();
+            if (!animation.type) {
+                animation.direction = 'right';
+                animation.type = 'slide';
+            } else {
+                if (animation.type !== 'fade') {
+                    if (!plugin.getOptions()) {
+                        animation.direction = 'right';
+                    } else {
+                        switch (true) {
+                            case plugin.getOptions().direction === 'left':
+                                animation.direction = 'right';
+                                break;
+                            case plugin.getOptions().direction === 'right':
+                                animation.direction = 'left';
+                                break;
+                            case plugin.getOptions().direction === 'up':
+                                animation.direction = 'down';
+                                break;
+                            case plugin.getOptions().direction === 'down':
+                                animation.direction = 'up';
+                                break;
+                        }
+                    }
+                }
+            }
         }
-
         xtype  = stack.pop();
 
         view.fireEvent('back', view, xtype);
