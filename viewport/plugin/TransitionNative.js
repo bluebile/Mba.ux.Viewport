@@ -1,4 +1,4 @@
-Ext.define('Mba.ux.Viewport.viewport.plugin..TransitionNative', {
+Ext.define('Mba.ux.Viewport.viewport.plugin.TransitionNative', {
     extend: 'Ext.Evented',
     alias: 'plugin.transitionnative',
     config: {
