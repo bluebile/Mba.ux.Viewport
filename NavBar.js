@@ -43,7 +43,7 @@ Ext.define('Mba.ux.Viewport.NavBar', {
             align: 'left',
             hidden: Ext.isEmpty(Ext.Viewport.getNavigation().getNavigationStack()),
             itemId: 'systemBackButton',
-            iconCls: Ext.os.is.Android ? 'ion-md-arrow-back' : 'ion-ios-arrow-back',
+            iconCls: Ext.os.is.Android ? 'icon-arrow-back' : 'icon-arrow-back',
             handler: function() {
                 Ext.Viewport.onBack();
             }
@@ -56,7 +56,7 @@ Ext.define('Mba.ux.Viewport.NavBar', {
             cls: 'back-modal',
             align: Ext.os.is.iOS ? 'left' : 'right',
             itemId: 'systemBackButton',
-            text: Ext.os.is.iOS ? MbaLocale.get('geral.botao.voltar') : '<i class="ion-md-close"></i>',
+            text: Ext.os.is.iOS ? MbaLocale.get('geral.botao.voltar') : '<i class="icon-close"></i>',
             ui: 'plain',
             handler: function() {
                 Ext.Viewport.onBack();
