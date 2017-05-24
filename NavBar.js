@@ -22,7 +22,7 @@ Ext.define('Mba.ux.Viewport.NavBar', {
         this.callParent(arguments);
 
         if (arguments[0].modal) {
-            button = this.getCloseModalButton();
+            button = this.getCloseModalButton(arguments[0].items || []);
         } else {
             button = this.getBackButton();
         }
@@ -50,11 +50,11 @@ Ext.define('Mba.ux.Viewport.NavBar', {
         };
     },
 
-    getCloseModalButton: function() {
+    getCloseModalButton: function(items) {
         return {
             xtype: 'button',
             cls: 'back-modal',
-            align: 'right',
+            align: items.length > 0 ? 'left' : 'right',
             itemId: 'systemBackButton',
             text: '<i class="icon-close"></i>',
             ui: 'plain',
